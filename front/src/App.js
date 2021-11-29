@@ -75,7 +75,7 @@ const Form = () => {
   return (
     <div className="container m-10">
       <form ref={formRef}>
-        <div class="row g-6 align-items-center">
+        <div className="row g-6 align-items-center">
           <div className="col-auto">
             <input
               type="text"
@@ -144,10 +144,10 @@ const List = () => {
                 <td>{todo.name}</td>
                 <td>{todo.isComplete === true ? "SI" : "NO"}</td>
                 <td>
-                  <button onClick={() => onDelete(todo.id)}>Eliminar</button>
+                  <button onClick={() => onDelete(todo.id)} className="btn btn-primary">Eliminar</button>
                 </td>
                 <td>
-                  <button onClick={() => onEdit(todo)}>Editar</button>
+                  <button onClick={() => onEdit(todo)} className="btn btn-primary">Editar</button>
                 </td>
               </tr>
             );
