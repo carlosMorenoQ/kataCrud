@@ -6,6 +6,7 @@ import React, {
   useState,
   createContext,
 } from "react";
+import Header from "./components/Header";
 /************************* ↓ contexto ↓ ***************************************/
 const HOST_API = "http://localhost:8080/api";
 const initialState = {
@@ -72,18 +73,32 @@ const Form = () => {
   };
 
   return (
-    <form ref={formRef}>
-      <input
-        type="text"
-        name="name"
-        defaultValue={item.name}
-        onChange={(event) => {
-          setState({ ...state, name: event.target.value });
-        }}
-      ></input>
-      {item.id && <button onClick={onEdit}>Actualizar</button>}
-      {!item.id && <button onClick={onAdd}>Agregar</button>}
-    </form>
+    <div className="container m-10">
+      <form ref={formRef}>
+        <div class="row g-6 align-items-center">
+          <div className="col-auto">
+            <input
+              type="text"
+              name="name"
+              defaultValue={item.name}
+              onChange={(event) => {
+                setState({ ...state, name: event.target.value });
+              }}
+            ></input>
+          </div>
+          {item.id && (
+            <button onClick={onEdit} className="col-auto">
+              Actualizar
+            </button>
+          )}
+          {!item.id && (
+            <button onClick={onAdd} className="col-auto">
+              Agregar
+            </button>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 /************************* ↑ componentForm ↑ **********************************/
@@ -108,24 +123,24 @@ const List = () => {
   };
 
   const onEdit = (todo) => {
-    dispatch({ type: "edit-item", item: todo })
-  };  
+    dispatch({ type: "edit-item", item: todo });
+  };
 
   return (
-    <div>
-      <table>
+    <div className="container mt-20">
+      <table class="table">
         <thead>
           <tr>
-            <td>ID</td>
-            <td>Nombre</td>
-            <td>¿Está completado?</td>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">¿Está completado?</th>
           </tr>
         </thead>
         <tbody>
           {state.list.map((todo) => {
             return (
               <tr key={todo.id}>
-                <td>{todo.id}</td>
+                <th scope="row">{todo.id}</th>
                 <td>{todo.name}</td>
                 <td>{todo.isComplete === true ? "SI" : "NO"}</td>
                 <td>
@@ -185,6 +200,7 @@ const StoreProvider = ({ children }) => {
 function App() {
   return (
     <StoreProvider>
+      <Header />
       <Form />
       <List />
     </StoreProvider>
